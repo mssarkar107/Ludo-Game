@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Ludo Game</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(5, 100px); /* ৫ কলাম */
+            grid-template-rows: repeat(5, 100px);    /* ৫ রো */
+            gap: 5px;
+            margin: 20px auto;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .player {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: red;
+        }
+
+        .dice-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="board">
+        <div class="cell" id="cell1"></div>
+        <div class="cell" id="cell2"></div>
+        <div class="cell" id="cell3"></div>
+        <div class="cell" id="cell4"></div>
+        <div class="cell" id="cell5"></div>
+        <div class="cell" id="cell6"></div>
+        <div class="cell" id="cell7"></div>
+        <div class="cell" id="cell8"></div>
+        <div class="cell" id="cell9"></div>
+        <div class="cell" id="cell10"></div>
+        <div class="cell" id="cell11"></div>
+        <div class="cell" id="cell12"></div>
+        <div class="cell" id="cell13"></div>
+        <div class="cell" id="cell14"></div>
+        <div class="cell" id="cell15">
+            <div class="player" id="player"></div>
+        </div>
+        <div class="cell" id="cell16"></div>
+        <div class="cell" id="cell17"></div>
+        <div class="cell" id="cell18"></div>
+        <div class="cell" id="cell19"></div>
+        <div class="cell" id="cell20"></div>
+        <div class="cell" id="cell21"></div>
+        <div class="cell" id="cell22"></div>
+        <div class="cell" id="cell23"></div>
+        <div class="cell" id="cell24"></div>
+        <div class="cell" id="cell25"></div>
+    </div>
+
+    <div class="dice-container">
+        <button onclick="rollDice()">Roll Dice</button>
+        <p id="diceResult">Roll the dice to move!</p>
+    </div>
+
+    <script>
+        let playerPosition = 15;
+
+        function rollDice() {
+            const diceValue = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('diceResult').innerText = "You rolled: " + diceValue;
+
+            movePlayer(diceValue);
+        }
+
+        function movePlayer(steps) {
+            document.getElementById('cell' + playerPosition).innerHTML = '';
+
+            playerPosition += steps;
+
+            if (playerPosition > 25) {
+                playerPosition = playerPosition % 25;
+                if (playerPosition === 0) playerPosition = 25;
+            }
+
+            document.getElementById('cell' + playerPosition).innerHTML = '<div class="player"></div>';
+        }
+    </script>
+
+</body>
+</html>
