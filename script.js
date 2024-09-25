@@ -1,37 +1,23 @@
-let diceValue = 1;
-let playerPosition = [0, 0]; // Starting positions for two players
+let currentPlayer = 0;
+const diceResultElement = document.getElementById("diceResult");
 
 function rollDice() {
-    diceValue = Math.floor(Math.random() * 6) + 1;
-    document.getElementById("dice").innerText = diceValue;
-
-    // Update player position based on dice roll
-    movePlayer();
+    const diceRoll = Math.floor(Math.random() * 6) + 1; // ১ থেকে ৬ এর মধ্যে র্যান্ডম সংখ্যা
+    diceResultElement.textContent = `ডাইসের ফলাফল: ${diceRoll}`;
+    // গেমের লজিক এখানে যুক্ত করো (যেমন, প্লেয়ার এর চলাচল ইত্যাদি)
 }
 
-function movePlayer() {
-    for (let i = 0; i < playerPosition.length; i++) {
-        playerPosition[i] += diceValue; // Move player by the dice value
-        // Update player position on the board
-        let playerElement = document.getElementById(`player${i}`);
-        if (playerElement) {
-            playerElement.style.top = `${playerPosition[i] * 20}px`; // Update based on your board scale
-            playerElement.style.left = `${playerPosition[i] * 20}px`;
-        }
-    }
+// ২৫টি ঘর তৈরি করা
+const board = document.querySelector(".board");
+for (let i = 0; i < 25; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
+    cell.textContent = i + 1; // ঘরের নম্বর দেখানো
+    board.appendChild(cell);
 }
 
-// Function to create player elements
-function createPlayers() {
-    let board = document.querySelector('.board');
-    for (let i = 0; i < playerPosition.length; i++) {
-        let playerDiv = document.createElement('div');
-        playerDiv.classList.add('player');
-        playerDiv.id = `player${i}`;
-        playerDiv.style.top = '0px';
-        playerDiv.style.left = '0px';
-        board.appendChild(playerDiv);
-    }
-}
-
-createPlayers();
+// ডাইস রোল করার বোতাম
+const rollButton = document.createElement("button");
+rollButton.textContent = "ডাইস রোল করো";
+rollButton.onclick = rollDice;
+document.body.appendChild(rollButton);
